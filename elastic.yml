@@ -1,0 +1,22 @@
+- name  : install elastic master node
+  hosts : master
+  roles :
+   - { role: es,es_instance_name: node2, become: true,es_heap_size: "2g",
+    es_config: {
+        node.name: "es-master-02",
+        cluster.name: "es_cluster",
+        discovery.zen.ping.unicast.hosts: "10.148.240.75:9300",
+        http.port: 9200,
+        transport.tcp.port: 9300,
+        node.data: false,
+        node.master: true,
+        node.ingest: false,
+        bootstrap.memory_lock: false
+        }
+    }
+  vars:
+    es_scripts: false
+    es_templates: false
+    es_version_lock: false
+    ansible_user: stack
+

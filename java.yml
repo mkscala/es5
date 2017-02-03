@@ -1,0 +1,5 @@
+- name  : install java8
+  hosts : master
+  roles :
+   - {role: java, become: yes }
+

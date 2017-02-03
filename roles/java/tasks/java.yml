@@ -1,0 +1,29 @@
+#- name: ensure required packages are installed for Java 8
+#  apt: name={{item}} state=latest update_cache=yes
+#  with_items:
+#    - python-software-properties
+
+- name: installing pre-reqs
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - software-properties-common
+
+- name: Add java repo
+  apt_repository: repo={{ java_repo }} state=present update_cache=yes
+
+- name: Accept Oracle license prior JDK installation
+  debconf: name='oracle-java7-installer' question='shared/accepted-oracle-license-v1-1' value='true' vtype='select'
+
+- name: Install Java
+  apt: name={{ java_package }} state=present update_cache=yes cache_valid_time={{ java_cache_time }}
+
+- name: debian | installing Oracle Java8
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - oracle-java8-installer
+    - ca-certificates
+    - oracle-java8-set-default

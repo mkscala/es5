@@ -1,0 +1,12 @@
+---
+# defaults file for ansible-oracle-java8
+oracle_java8_debian_repo_info:
+  id: 'EEA14886'
+  keyserver: 'hkp://keyserver.ubuntu.com:80'
+  repo: 'deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main'
+
+# ===== Java =====
+java_cache_time: 300 # seconds between "apt-get update" calls.
+java_repo: ppa:webupd8team/java
+java_package: oracle-java8-installer
+java_install: true

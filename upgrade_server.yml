@@ -1,0 +1,8 @@
+#the first one will update the local cache for apt (same as apt-get update) 
+# second one will do a full upgrade of the packages (same as apt-get upgrade)
+- name : update ubuntu servers
+  hosts: master
+  sudo: true
+  tasks:
+   - name: updates a server
+     apt: update_cache=yes
