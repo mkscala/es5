@@ -1,0 +1,11 @@
+Master Eligible nodes:
+
+We have had this occur from time to time. To get the cluster out of unhealthy state, we do this
+
+stop elasticsearch on node1.
+restart elasticsearch on node2 and node 3 and wait until they try to discover node1.
+start elasticsearch on node1.
+
+
+The first node only becomes master once there are enough master-eligible nodes to satisfy the requirement:
+
