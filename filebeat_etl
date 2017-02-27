@@ -1,0 +1,35 @@
+stack@beats-server-5528:/etc/filebeat$ more filebeat.yml
+filebeat.prospectors:
+- input_type: log
+  paths: ["/var/lib/filebeat/cs/email/csdw_email_transcript*.json"]
+  fields:
+   type: "cs-email"
+  registry_file: "/var/lib/filebeat/registry"
+  json.message_key: sr
+  json.keys_under_root: true
+
+output.elasticsearch:
+  hosts: ["${hotname}:80"]
+  template.enabled: true
+  template.path: "filebeat.template.json"
+  template.overwrite: false
+  index: "cs-email"
+  #pipelines:
+   # - pipeline: critical_pipeline
+   #   when.equals:
+   #     type: "critical"
+   # - pipeline: normal_pipeline
+   #   when.equals:
+   #     type: "normal"
+shipper:
+  name: "Enterprise Data"
+  tags: ["cstech"]
+
+logging:
+  to_files: true
+  files:
+    path: /var/log/filebeat
+    name: cs_email_filebeat.log
+    rotateeverybytes: 10485760 # = 10MB
+    keepfiles: 10
+  level: info
